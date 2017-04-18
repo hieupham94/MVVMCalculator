@@ -95,6 +95,51 @@ namespace Xamarin.FormsBook.Toolkit
                 {
                     return !isSumDisplayed;
                 });
+
+            MinusCommand = new Command(
+                execute: () =>
+                {
+                    double value = Double.Parse(CurrentEntry);
+                    HistoryString += value.ToString() + " - ";
+                    accumulatedSum += value;
+                    CurrentEntry = accumulatedSum.ToString();
+                    isSumDisplayed = true;
+                    RefreshCanExecutes();
+                },
+                canExecute: () =>
+                {
+                    return !isSumDisplayed;
+                });
+
+            MultiplyCommand = new Command(
+                execute: () =>
+                {
+                    double value = Double.Parse(CurrentEntry);
+                    HistoryString += value.ToString() + " * ";
+                    accumulatedSum *= value;
+                    CurrentEntry = accumulatedSum.ToString();
+                    isSumDisplayed = true;
+                    RefreshCanExecutes();
+                },
+                canExecute: () =>
+                {
+                    return !isSumDisplayed;
+                });
+
+            DivideCommand = new Command(
+                execute: () =>
+                {
+                    double value = Double.Parse(CurrentEntry);
+                    HistoryString += value.ToString() + " / ";
+                    accumulatedSum += value;
+                    CurrentEntry = accumulatedSum.ToString();
+                    isSumDisplayed = true;
+                    RefreshCanExecutes();
+                },
+                canExecute: () =>
+                {
+                    return !isSumDisplayed;
+                });
         }
 
         void RefreshCanExecutes()
@@ -103,6 +148,9 @@ namespace Xamarin.FormsBook.Toolkit
             ((Command)NumericCommand).ChangeCanExecute();
             ((Command)DecimalPointCommand).ChangeCanExecute();
             ((Command)AddCommand).ChangeCanExecute();
+            ((Command)MinusCommand).ChangeCanExecute();
+            ((Command)MultiplyCommand).ChangeCanExecute();
+            ((Command)DivideCommand).ChangeCanExecute();
         }
 
         public string CurrentEntry
@@ -128,6 +176,12 @@ namespace Xamarin.FormsBook.Toolkit
         public ICommand DecimalPointCommand { private set; get; }
 
         public ICommand AddCommand { private set; get; }
+
+        public ICommand MinusCommand { private set; get; }
+
+        public ICommand MultiplyCommand { private set; get; }
+
+        public ICommand DivideCommand { private set; get; }
 
         public void SaveState(IDictionary<string, object> dictionary)
         {
