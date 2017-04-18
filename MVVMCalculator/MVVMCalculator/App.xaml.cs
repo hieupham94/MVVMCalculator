@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using Xamarin.FormsBook.Toolkit;
 
 using Xamarin.Forms;
 
@@ -9,9 +10,12 @@ namespace MVVMCalculator
 {
     public partial class App : Application
     {
+        AdderViewModel adderViewModel;
         public App()
         {
-            MainPage = new MainPage();
+            adderViewModel = new AdderViewModel();
+            adderViewModel.RestoreState(Current.Properties);
+            MainPage = new MainPage(adderViewModel);
         }
 
         protected override void OnStart()
@@ -22,6 +26,7 @@ namespace MVVMCalculator
         protected override void OnSleep()
         {
             // Handle when your app sleeps
+            adderViewModel.SaveState(Current.Properties);
         }
 
         protected override void OnResume()
